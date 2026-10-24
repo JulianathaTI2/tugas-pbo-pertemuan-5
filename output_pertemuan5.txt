@@ -1,0 +1,30 @@
+=== 1. Polymorphism: satu fungsi, dua jenis laporan ===
+[LK-001] KEHILANGAN: Budi kehilangan Dompet hitam, terakhir di Perpustakaan
+    ciri: kulit, ada kartu mahasiswa | berlaku 30 hari | status: dilaporkan
+[LT-001] TEMUAN: Rina menemukan Dompet hitam di Perpustakaan lantai 2 (simpan: Pos Satpam)
+    ciri: kulit, ada kartu mahasiswa | berlaku 90 hari | status: dilaporkan
+[LK-002] KEHILANGAN: Sari kehilangan Botol minum biru, terakhir di Kantin
+    ciri: tutup putih | berlaku 30 hari | status: dilaporkan
+
+=== 2. Interface BisaDicocokkan (Barang dan Laporan tidak satu parent) ===
+Barang            -> kunci: dompet hitam
+LaporanKehilangan -> kunci: dompet hitam
+LaporanTemuan     -> kunci: dompet hitam
+
+=== 3. Composition: Klaim yang tidak cocok ===
+Klaim KL-002 ditolak: barang pada kedua laporan tidak cocok.
+
+=== 4. Composition: Klaim yang cocok ===
+Klaim KL-001 terverifikasi: laporan LK-001 dan LT-001 cocok.
+Klaim KL-001 selesai: barang diserahkan kepada pemilik.
+
+=== 5. Status akhir (polymorphism lagi) ===
+[LK-001] KEHILANGAN: Budi kehilangan Dompet hitam, terakhir di Perpustakaan
+    ciri: kulit, ada kartu mahasiswa | berlaku 30 hari | status: selesai
+[LT-001] TEMUAN: Rina menemukan Dompet hitam di Perpustakaan lantai 2 (simpan: Pos Satpam)
+    ciri: kulit, ada kartu mahasiswa | berlaku 90 hari | status: selesai
+[LK-002] KEHILANGAN: Sari kehilangan Botol minum biru, terakhir di Kantin
+    ciri: tutup putih | berlaku 30 hari | status: dilaporkan
+
+=== 6. Abstract class tidak bisa dibuat langsung ===
+DITOLAK (Error): Cannot instantiate abstract class Laporan
