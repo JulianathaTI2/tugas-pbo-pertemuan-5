@@ -78,7 +78,7 @@ abstract class Laporan implements BisaDicocokkan
     public function ringkas(): string
     {
         return sprintf(
-            "[%s] %s\n    ciri: %s | berlaku %d hari | status: %s",
+            "[%s] %s<br>     ciri: %s | berlaku %d hari | status: %s",
             $this->idLaporan,
             $this->deskripsi(),
             $this->barang->getCiri(),
@@ -209,7 +209,7 @@ class Klaim
     public function verifikasi(): bool
     {
         if (!$this->cocok($this->kehilangan, $this->temuan)) {
-            echo "Klaim $this->idKlaim ditolak: barang pada kedua laporan tidak cocok.\n";
+            echo "Klaim $this->idKlaim ditolak: barang pada kedua laporan tidak cocok.<br> ";
             return false;
         }
 
@@ -218,7 +218,7 @@ class Klaim
         $this->terverifikasi = true;
         echo "Klaim $this->idKlaim terverifikasi: laporan "
             . $this->kehilangan->getIdLaporan() . " dan "
-            . $this->temuan->getIdLaporan() . " cocok.\n";
+            . $this->temuan->getIdLaporan() . " cocok.<br> ";
         return true;
     }
 
@@ -230,7 +230,7 @@ class Klaim
 
         $this->kehilangan->ubahStatus("selesai");
         $this->temuan->ubahStatus("selesai");
-        echo "Klaim $this->idKlaim selesai: barang diserahkan kepada pemilik.\n";
+        echo "Klaim $this->idKlaim selesai: barang diserahkan kepada pemilik.<br> ";
     }
 }
 
@@ -238,7 +238,7 @@ class Klaim
 function cetakRingkasan(Laporan ...$daftar): void
 {
     foreach ($daftar as $laporan) {
-        echo $laporan->ringkas(), "\n"; // tanpa if/else berdasarkan nama class
+        echo $laporan->ringkas(), "<br> "; // tanpa if/else berdasarkan nama class
     }
 }
 
@@ -246,7 +246,7 @@ function cetakRingkasan(Laporan ...$daftar): void
 function tampilkanKunci(BisaDicocokkan ...$daftar): void
 {
     foreach ($daftar as $item) {
-        echo str_pad(get_class($item), 18) . "-> kunci: " . $item->kunciPencocokan() . "\n";
+        echo str_pad(get_class($item), 18) . "-> kunci: " . $item->kunciPencocokan() . "<br> ";
     }
 }
 
@@ -258,28 +258,28 @@ $lk1 = new LaporanKehilangan("LK-001", "Budi", $dompet, "Perpustakaan");
 $lt1 = new LaporanTemuan("LT-001", "Rina", $dompet, "Perpustakaan lantai 2", "Pos Satpam");
 $lk2 = new LaporanKehilangan("LK-002", "Sari", $botol, "Kantin");
 
-echo "=== 1. Polymorphism: satu fungsi, dua jenis laporan ===\n";
+echo "=== 1. Polymorphism: satu fungsi, dua jenis laporan ===<br> ";
 cetakRingkasan($lk1, $lt1, $lk2);
 
-echo "\n=== 2. Interface BisaDicocokkan (Barang dan Laporan tidak satu parent) ===\n";
+echo "<br> === 2. Interface BisaDicocokkan (Barang dan Laporan tidak satu parent) ===<br> ";
 tampilkanKunci($dompet, $lk1, $lt1);
 
-echo "\n=== 3. Composition: Klaim yang tidak cocok ===\n";
+echo "<br> === 3. Composition: Klaim yang tidak cocok ===<br> ";
 $klaimSalah = new Klaim("KL-002", $lk2, $lt1);
 $klaimSalah->verifikasi();
 
-echo "\n=== 4. Composition: Klaim yang cocok ===\n";
+echo "<br> === 4. Composition: Klaim yang cocok ===<br> ";
 $klaim = new Klaim("KL-001", $lk1, $lt1);
 if ($klaim->verifikasi()) {
     $klaim->serahkan();
 }
 
-echo "\n=== 5. Status akhir (polymorphism lagi) ===\n";
+echo "<br> === 5. Status akhir (polymorphism lagi) ===<br> ";
 cetakRingkasan($lk1, $lt1, $lk2);
 
-echo "\n=== 6. Abstract class tidak bisa dibuat langsung ===\n";
+echo "<br> === 6. Abstract class tidak bisa dibuat langsung ===<br> ";
 try {
     $x = new Laporan("X-001", $dompet, "Kantin");
 } catch (Error $e) {
-    echo "DITOLAK (" . get_class($e) . "): " . $e->getMessage() . "\n";
+    echo "DITOLAK (" . get_class($e) . "): " . $e->getMessage() . "<br> ";
 }
