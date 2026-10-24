@@ -100,3 +100,12 @@ Klaim KL-001 selesai: barang diserahkan kepada pemilik.
 === 6. Abstract class tidak bisa dibuat langsung ===
 DITOLAK (Error): Cannot instantiate abstract class Laporan
 ```
+
+
+
+
+
+
+
+
+<img width="1920" height="1080" alt="Screenshot 2026-10-24 022145" src="https://github.com/user-attachments/assets/b75b9335-10af-4768-8c91-01892ee3387a" />
